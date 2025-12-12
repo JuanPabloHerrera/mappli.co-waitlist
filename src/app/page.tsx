@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   return (
@@ -17,7 +17,111 @@ export default function Home() {
           </p>
         </div>
       </div>
+      <WaitlistBar />
     </main>
+  );
+}
+
+function WaitlistBar() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const trimmed = email.trim();
+    if (!trimmed) return;
+
+    setIsSubmitting(true);
+    setMessage(null);
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed }),
+      });
+
+      if (res.ok) {
+        setEmail("");
+        setMessage("You're on the waitlist.");
+        return;
+      }
+
+      const data = (await res.json().catch(() => null)) as
+        | { error?: unknown }
+        | null;
+      const errorText =
+        data && typeof data.error === "string"
+          ? data.error
+          : "Could not join the waitlist.";
+      setMessage(`Error: ${errorText}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center px-6 pb-10">
+      <div className="pointer-events-auto w-full max-w-3xl">
+        <form onSubmit={onSubmit} className="flex items-center gap-4">
+          <div className="flex h-16 flex-1 items-center rounded-full border border-foreground/10 bg-background/70 px-8 backdrop-blur">
+            <input
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (message) setMessage(null);
+              }}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder="join the waitlist..."
+              required
+              disabled={isSubmitting}
+              className="w-full bg-transparent text-lg text-foreground placeholder:text-foreground/40 outline-none disabled:opacity-60"
+              aria-label="Email address"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={isSubmitting || !email.trim()}
+            className="flex h-16 w-16 items-center justify-center rounded-full bg-foreground/60 text-background transition-opacity disabled:opacity-40"
+            aria-label="Send"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-6 w-6"
+            >
+              <path
+                d="M22 2L11 13"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M22 2L15 22l-4-9-9-4 20-7Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+
+        {isSubmitting ? (
+          <p className="mt-3 text-center text-sm text-foreground/60">
+            sending...
+          </p>
+        ) : message ? (
+          <p className="mt-3 text-center text-sm text-foreground/60">
+            {message}
+          </p>
+        ) : null}
+      </div>
+    </div>
   );
 }
 
