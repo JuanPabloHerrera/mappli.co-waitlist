@@ -62,7 +62,7 @@ function WaitlistBar() {
 
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center px-6 pb-10">
-      <div className="pointer-events-auto w-full max-w-3xl">
+      <div className="pointer-events-auto w-full max-w-sm">
         <form onSubmit={onSubmit} className="flex items-center gap-4">
           <div className="flex h-16 flex-1 items-center rounded-full border border-foreground/10 bg-background/70 px-8 backdrop-blur">
             <input
