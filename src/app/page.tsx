@@ -12,6 +12,9 @@ export default function Home() {
           <p className="mt-4 text-base font-normal leading-7 text-foreground/70">
             The AI Marketplace community.
           </p>
+          <p className="mt-6 text-base font-normal leading-7 text-foreground/70">
+            comming soon in 2026...
+          </p>
         </div>
       </div>
     </main>
@@ -70,9 +73,9 @@ function Blob() {
 
     let rafId = 0;
     const bubbleConfigs = [
-      { lag: 0.0375, drift: 24, phase: 0.0 },
-      { lag: 0.025, drift: 34, phase: 1.6 },
-      { lag: 0.019, drift: 44, phase: 3.1 },
+      { lag: 0.03, drift: 24, phase: 0.0 },
+      { lag: 0.02, drift: 34, phase: 1.6 },
+      { lag: 0.0152, drift: 44, phase: 3.1 },
     ];
 
     const follow = () => {
@@ -81,7 +84,7 @@ function Blob() {
       const now = performance.now();
 
       // Smooth the pointer target so movement "fades" rather than snapping.
-      const targetEase = 0.0425;
+      const targetEase = 0.034;
       targetSmoothed.current.x +=
         (target.current.x - targetSmoothed.current.x) * targetEase;
       targetSmoothed.current.y +=
@@ -132,10 +135,18 @@ function Blob() {
 
         el.style.setProperty("--blob-morph-duration", `${14 - intensity * 9}s`);
 
-        const motionScale = 1 + intensity * (0.09 - i * 0.015);
-        const motionRotate = (i === 1 ? -1 : 1) * intensity * 6;
-        el.style.transform =
-          `translate3d(${currents.current[i].x}px, ${currents.current[i].y}px, 0) translate3d(-50%, -50%, 0) scale(var(--blob-scale, 1)) rotate(var(--blob-rotate, 0deg)) rotate(${motionRotate.toFixed(2)}deg) scale(${motionScale.toFixed(3)})`;
+        // Seamless loop for size/form: drive scale/rotation with continuous waves.
+        // (CSS custom properties don't interpolate between keyframes, which can cause jumps.)
+        const pulse = (Math.sin(now * 0.001 + cfg.phase) + 1) / 2; // 0..1
+        const baseScale = 0.90 + pulse * (0.22 - i * 0.03); // small -> big -> small
+        const motionScale = 1 + intensity * (0.06 - i * 0.01);
+        const scale = baseScale * motionScale;
+
+        const baseRotate = Math.sin(now * 0.0008 + cfg.phase) * (6 - i * 1.5);
+        const motionRotate = (i === 1 ? -1 : 1) * intensity * 7;
+        const rotate = baseRotate + motionRotate;
+
+        el.style.transform = `translate3d(${currents.current[i].x}px, ${currents.current[i].y}px, 0) translate3d(-50%, -50%, 0) rotate(${rotate.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
       }
 
       rafId = window.requestAnimationFrame(follow);
@@ -179,7 +190,7 @@ function Blob() {
           bubbleRefs.current[0] = el;
         }}
         aria-hidden="true"
-        style={{ filter: "url(#blob-water)", width: 260, height: 260, opacity: 0.55 }}
+        style={{ filter: "url(#blob-water)", width: 208, height: 208, opacity: 0.55 }}
         className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-blue-600 via-sky-500 to-cyan-300 mix-blend-multiply"
       />
       <div
@@ -189,8 +200,8 @@ function Blob() {
         aria-hidden="true"
         style={{
           filter: "url(#blob-water)",
-          width: 220,
-          height: 220,
+          width: 176,
+          height: 176,
           opacity: 0.38,
           animationDelay: "-3.5s",
         }}
@@ -203,8 +214,8 @@ function Blob() {
         aria-hidden="true"
         style={{
           filter: "url(#blob-water)",
-          width: 180,
-          height: 180,
+          width: 144,
+          height: 144,
           opacity: 0.26,
           animationDelay: "-7s",
         }}
