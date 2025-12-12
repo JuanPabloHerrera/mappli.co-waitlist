@@ -112,11 +112,11 @@ function WaitlistBar() {
         </form>
 
         {isSubmitting ? (
-          <p className="mt-3 text-center text-sm text-foreground/60">
+          <p className="mt-3 text-center text-lg text-foreground/60">
             sending...
           </p>
         ) : message ? (
-          <p className="mt-3 text-center text-sm text-foreground/60">
+          <p className="mt-3 text-center text-lg text-foreground/60">
             {message}
           </p>
         ) : null}
