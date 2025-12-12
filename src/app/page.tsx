@@ -9,10 +9,10 @@ export default function Home() {
       <div className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center">
         <div className="w-full max-w-xl">
           <h1 className="text-5xl font-normal tracking-tight">mappli</h1>
-          <p className="mt-4 text-base font-normal leading-7 text-foreground/70">
+          <p className="mt-6 text-lg font-normal leading-7 text-foreground/70">
             The AI Marketplace community.
           </p>
-          <p className="mt-6 text-base font-normal leading-7 text-foreground/70">
+          <p className="mt-4 text-lg font-normal leading-7 text-foreground/70">
             comming soon in 2026...
           </p>
         </div>
