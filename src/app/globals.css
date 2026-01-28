@@ -50,6 +50,20 @@ body {
   font-style: italic;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+::selection {
+  background: transparent;
+}
+
 .blob-morph {
   border-radius: 44% 56% 62% 38% / 50% 44% 56% 50%;
   animation: blobMorph var(--blob-morph-duration, 10s) linear infinite;
