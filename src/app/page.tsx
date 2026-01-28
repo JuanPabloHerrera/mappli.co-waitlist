@@ -6,17 +6,6 @@ export default function Home() {
   return (
     <main className="relative min-h-screen w-screen overflow-hidden bg-background">
       <Blob />
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 text-center">
-        <div className="w-full max-w-xl">
-          <h1 className="text-5xl font-normal tracking-tight">mappli</h1>
-          <p className="mt-6 text-lg font-normal leading-7 text-foreground/70">
-            The AI Marketplace community.
-          </p>
-          <p className="mt-4 text-lg font-normal leading-7 text-foreground/70">
-            comming soon in 2026...
-          </p>
-        </div>
-      </div>
       <WaitlistBar />
     </main>
   );
@@ -61,7 +50,7 @@ function WaitlistBar() {
   };
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center px-6 pb-10">
+    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6">
       <div className="pointer-events-auto w-full max-w-sm">
         <form onSubmit={onSubmit} className="flex items-center gap-4">
           <div className="flex h-16 flex-1 items-center rounded-full border border-foreground/10 bg-background/70 px-8 backdrop-blur">
@@ -295,7 +284,7 @@ function Blob() {
         }}
         aria-hidden="true"
         style={{ filter: "url(#blob-water)", width: 208, height: 208, opacity: 0.55 }}
-        className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-blue-600 via-sky-500 to-cyan-300 mix-blend-multiply"
+        className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-green-600 via-emerald-500 to-teal-300 mix-blend-multiply"
       />
       <div
         ref={(el) => {
@@ -309,7 +298,7 @@ function Blob() {
           opacity: 0.38,
           animationDelay: "-3.5s",
         }}
-        className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-blue-600 via-sky-500 to-cyan-300 mix-blend-multiply"
+        className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-green-600 via-emerald-500 to-teal-300 mix-blend-multiply"
       />
       <div
         ref={(el) => {
@@ -323,7 +312,7 @@ function Blob() {
           opacity: 0.26,
           animationDelay: "-7s",
         }}
-        className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-blue-600 via-sky-500 to-cyan-300 mix-blend-multiply"
+        className="blob-morph pointer-events-none absolute left-0 top-0 select-none bg-gradient-to-br from-green-600 via-emerald-500 to-teal-300 mix-blend-multiply"
       />
     </>
   );
