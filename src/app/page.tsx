@@ -52,7 +52,14 @@ function WaitlistBar() {
 
   return (
     <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6">
-      <div className="pointer-events-auto w-full max-w-2xl">
+      <div className="pointer-events-auto w-full max-w-4xl">
+        <h1 className="mb-8 text-center text-5xl md:text-6xl leading-tight" style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 700 }}>
+          <span className="block">ACCELERATING BUSINESS</span>
+          <span className="block">
+            <span className="bg-green-500 text-white px-2">INTELLIGENCE</span>
+            {" "}THROUGH A.I.
+          </span>
+        </h1>
         <form onSubmit={onSubmit} className="flex items-center gap-4">
           <div className="flex h-16 flex-1 items-center rounded-full border border-foreground/10 bg-background/70 px-8 backdrop-blur">
             <input
